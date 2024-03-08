@@ -6,14 +6,14 @@ from data_manager import DataManager
 
 class OSRSScraper:
     def __init__(self, config):
-        self.item_names = self.fetch_item_names()
-        self.buy_limits = self.fetch_buy_limits()
         self.config = config
         self.api_url_latest = "https://prices.runescape.wiki/api/v1/osrs/latest"
         self.api_url_5m = "https://prices.runescape.wiki/api/v1/osrs/5m"
         self.api_url_timeseries = "https://prices.runescape.wiki/api/v1/osrs/timeseries"
         self.data_manager = DataManager("osrs_data.db")
         self.data_manager.create_tables()
+        self.item_names = self.fetch_item_names()
+        self.buy_limits = self.fetch_buy_limits()
 
     def fetch_data(self, api_url):
         try:
@@ -58,8 +58,11 @@ class OSRSScraper:
                 self.data_manager.insert_price(item_id, entry["timestamp"], entry["avgHighPrice"], entry["highPriceVolume"])
             return next((entry for entry in data if entry["timestamp"] == timestamp), None)
         except requests.exceptions.RequestException as e:
-            print(f"Error fetching historical data for item {item_id}: {e}")
-            return None
+            if e.response is not None and e.response.status_code == 400:
+                print(f"Error fetching historical data for item {item_id}: {e}")
+                return None
+            else:
+                raise e
 
     def scrape_data(self):
         data_latest = self.fetch_data(self.api_url_latest)

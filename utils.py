@@ -50,9 +50,7 @@ def prepare_training_data(items_data):
             item["5-Minute Average High Price"],
             item["Price Fluctuation"],
             item["Buy Limit"],
-            item["ROI"],
-            item["Historical Price"],
-            item["Historical Volume"]
+            item["ROI"]
         ])
         y.append(item["Potential Profit"])
 

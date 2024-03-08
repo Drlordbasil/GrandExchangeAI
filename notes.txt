@@ -1,0 +1,36 @@
+Item Suggestions:
+Item Suggestions:
+- Ranarr seed
+  Buy Price: 26706
+  Sell Price: 27570.51
+  Potential Profit: 864.5099999999984 per item
+  Buy Limit: 200
+  Max Quantity: 200
+
+- Black d'hide chaps
+  Buy Price: 5213
+  Sell Price: 5841.0
+  Potential Profit: 628.0 per item
+  Buy Limit: 70
+  Max Quantity: 70
+
+- Black d'hide body
+  Buy Price: 7135
+  Sell Price: 7508.16
+  Potential Profit: 373.15999999999985 per item
+  Buy Limit: 70
+  Max Quantity: 70
+
+- Annakarl teleport (tablet)
+  Buy Price: 2660
+  Sell Price: 2899.71
+  Potential Profit: 239.71000000000004 per item
+  Buy Limit: 10000
+  Max Quantity: 10000
+
+- Anti-venom(4)
+  Buy Price: 6821
+  Sell Price: 7105.23
+  Potential Profit: 284.22999999999956 per item
+  Buy Limit: 2000
+  Max Quantity: 2000

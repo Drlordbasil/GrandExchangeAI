@@ -20,6 +20,12 @@ class OSRSEnvironment:
         self.total_profit = 0
         self.total_transactions = 0
 
+    def get_state(self, item_data):
+        roi_state = int(min(item_data["ROI"] * 100, self.config.NUM_STATES - 1))
+        profit_state = int(min(self.total_profit // 1000, self.config.NUM_STATES - 1))
+        state = (roi_state, profit_state)
+        return state
+
     def step(self, action):
         # Perform the action and update the state
         if action == "buy":
@@ -61,7 +67,7 @@ class OSRSEnvironment:
         }
 
         # Return the next_state, reward, done, and info
-        return self.current_state, reward, done, info
+        return self.get_state(self.current_item), reward, done, info
 
     def render(self):
         # Provide a visualization of the environment

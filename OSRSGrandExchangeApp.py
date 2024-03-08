@@ -56,7 +56,7 @@ class OSRSGrandExchangeApp(App):
 
     def create_input_layout(self):
         input_layout = BoxLayout(orientation="horizontal", spacing=10, size_hint=(1, None), height=40)
-        self.starting_gold_input = TextInput(text="10000", multiline=False, size_hint=(0.7, None), height=40, background_color=get_color_from_hex("#FFFFFF"), foreground_color=get_color_from_hex("#000000"))
+        self.starting_gold_input = TextInput(text="100000000", multiline=False, size_hint=(0.7, None), height=40, background_color=get_color_from_hex("#FFFFFF"), foreground_color=get_color_from_hex("#000000"))
         input_layout.add_widget(Label(text="Starting Gold:", size_hint=(0.3, None), height=40, color=get_color_from_hex("#FFFFFF")))
         input_layout.add_widget(self.starting_gold_input)
         return input_layout
@@ -117,12 +117,7 @@ class OSRSGrandExchangeApp(App):
             else:
                 model = RandomForestRegressor(n_estimators=100, random_state=42)
 
-            if self.use_rl:
-                rl_agent = OSRSAgent(Config)
-                rl_environment = OSRSEnvironment(Config)
-                suggestions = generate_item_suggestions(items_data, starting_gold, model, rl_agent, rl_environment)
-            else:
-                suggestions = generate_item_suggestions(items_data, starting_gold, model, None, None)
+            suggestions = generate_item_suggestions(items_data, starting_gold, model)
 
             if suggestions:
                 self.suggestions_text = f"Item Suggestions:\n{format_suggestions(suggestions)}"
@@ -131,7 +126,6 @@ class OSRSGrandExchangeApp(App):
         else:
             self.suggestions_text = "Error fetching item prices or item mapping."
         self.fetch_button.disabled = False
-
     def train_model(self, instance):
         self.train_button.disabled = True
         thread = Thread(target=self.train_model_thread)

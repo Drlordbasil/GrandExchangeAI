@@ -5,11 +5,7 @@ import os
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import StandardScaler
-from osrs_rl.agent import OSRSAgent
-from osrs_rl.environment import OSRSEnvironment
-from osrs_rl.trainer import OSRSTrainer
-
-def generate_item_suggestions(items_data, starting_gold, model, rl_agent, rl_environment):
+def generate_item_suggestions(items_data, starting_gold, model):
     X, _ = prepare_training_data(items_data)
     X_normalized = StandardScaler().fit_transform(X)
     predictions = model.predict(X_normalized)
@@ -25,18 +21,8 @@ def generate_item_suggestions(items_data, starting_gold, model, rl_agent, rl_env
             item["Max Quantity"] = max_quantity
             suggestions.append(item)
 
-    # Sort suggestions based on predicted profit
     suggestions.sort(key=lambda x: x["Predicted Profit"], reverse=True)
-
-    # Use RL agent to further optimize suggestions
-    optimized_suggestions = []
-    for suggestion in suggestions[:10]:  # Consider top 10 suggestions
-        state = rl_environment.get_state(suggestion)
-        action = rl_agent.predict(state)
-        if action == 1:  # Buy action
-            optimized_suggestions.append(suggestion)
-
-    return optimized_suggestions[:5]
+    return suggestions[:5]
 
 def prepare_training_data(items_data):
     X = []

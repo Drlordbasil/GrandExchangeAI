@@ -6,10 +6,10 @@ class Config:
     MIN_ROI = 0
     MIN_SELL_VOLUME = 100
     MIN_BUY_VOLUME = 100
-    MAX_TRANSACTIONS = 5
+    MAX_TRANSACTIONS = 500
     NUM_STATES = 2
     NUM_ACTIONS = 2
-    EPSILON = 0.1
-    ALPHA = 0.1
+    EPSILON = 0.3
+    ALPHA = 0.3
     GAMMA = 0.9
     

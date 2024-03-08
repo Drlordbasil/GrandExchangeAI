@@ -34,3 +34,39 @@ Item Suggestions:
   Potential Profit: 284.22999999999956 per item
   Buy Limit: 2000
   Max Quantity: 2000
+Item Suggestions:
+Item Suggestions:
+- Toadflax seed
+  Buy Price: 1190
+  Sell Price: 1366.2
+  Potential Profit: 176.20000000000005 per item
+  Buy Limit: 600
+  Max Quantity: 600
+
+- Cadantine potion (unf)
+  Buy Price: 4207
+  Sell Price: 4345.11
+  Potential Profit: 138.10999999999967 per item
+  Buy Limit: 10000
+  Max Quantity: 10000
+
+- Ground guam
+  Buy Price: 28
+  Sell Price: 198.0
+  Potential Profit: 170.0 per item
+  Buy Limit: 100
+  Max Quantity: 100
+
+- Blighted karambwan
+  Buy Price: 668
+  Sell Price: 730.62
+  Potential Profit: 62.620000000000005 per item
+  Buy Limit: 0
+  Max Quantity: 0
+
+- Arctic pine logs
+  Buy Price: 348
+  Sell Price: 424.71
+  Potential Profit: 76.70999999999998 per item
+  Buy Limit: 11000
+  Max Quantity: 11000

@@ -1,5 +1,3 @@
-# OSRSGrandExchangeApp.py
-
 from kivy.properties import StringProperty, BooleanProperty
 from kivy.core.clipboard import Clipboard
 from kivy.uix.boxlayout import BoxLayout
@@ -21,6 +19,7 @@ from config import Config
 from osrs_rl.agent import OSRSAgent
 from osrs_rl.environment import OSRSEnvironment
 from osrs_rl.trainer import OSRSTrainer
+from feature_engineer import FeatureEngineer
 
 class OSRSGrandExchangeApp(App):
     suggestions_text = StringProperty("")
@@ -107,39 +106,50 @@ class OSRSGrandExchangeApp(App):
             self.fetch_button.disabled = False
 
     def fetch_prices_and_generate_suggestions_thread(self, starting_gold):
-        scraper = OSRSScraper(Config)
-        items_data = scraper.scrape_data()
-        if items_data:
-            model_file = "model.pkl"
-            if os.path.exists(model_file):
-                with open(model_file, "rb") as file:
-                    model = pickle.load(file)
-            else:
-                model = RandomForestRegressor(n_estimators=100, random_state=42)
+        try:
+            scraper = OSRSScraper(Config)
+            items_data = scraper.scrape_data()
+            if items_data is not None and len(items_data) > 0:
+                model_file = "model.pkl"
+                if os.path.exists(model_file):
+                    with open(model_file, "rb") as file:
+                        model = pickle.load(file)
+                else:
+                    model = RandomForestRegressor(n_estimators=100, random_state=42)
 
-            suggestions = generate_item_suggestions(items_data, starting_gold, model)
+                suggestions = generate_item_suggestions(items_data, starting_gold, model)
 
-            if suggestions:
-                self.suggestions_text = f"Item Suggestions:\n{format_suggestions(suggestions)}"
+                if suggestions:
+                    self.suggestions_text = f"Item Suggestions:\n{format_suggestions(suggestions)}"
+                else:
+                    self.suggestions_text = "No item suggestions found."
             else:
-                self.suggestions_text = "No item suggestions found."
-        else:
-            self.suggestions_text = "Error fetching item prices or item mapping."
-        self.fetch_button.disabled = False
+                self.suggestions_text = "Error fetching item prices or item mapping."
+        except Exception as e:
+            print(f"Error in fetch_prices_and_generate_suggestions_thread: {e}")
+            self.suggestions_text = "An error occurred while generating suggestions."
+        finally:
+            self.fetch_button.disabled = False
+
+    def train_model_thread(self):
+        try:
+            scraper = OSRSScraper(Config)
+            items_data = scraper.scrape_data()
+            if items_data is not None and len(items_data) > 0:
+                model = train_model(items_data)
+                self.suggestions_text = "Model training completed."
+            else:
+                self.suggestions_text = "Error fetching item prices or item mapping."
+        except Exception as e:
+            print(f"Error in train_model_thread: {e}")
+            self.suggestions_text = "An error occurred while training the model."
+        finally:
+            self.train_button.disabled = False
+
     def train_model(self, instance):
         self.train_button.disabled = True
         thread = Thread(target=self.train_model_thread)
         thread.start()
-
-    def train_model_thread(self):
-        scraper = OSRSScraper(Config)
-        items_data = scraper.scrape_data()
-        if items_data:
-            model = train_model(items_data)
-            self.suggestions_text = "Model training completed."
-        else:
-            self.suggestions_text = "Error fetching item prices or item mapping."
-        self.train_button.disabled = False
 
     def copy_to_clipboard(self, instance):
         text_to_copy = f"Item Suggestions:\n{self.suggestions_text}"

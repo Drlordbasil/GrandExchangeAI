@@ -106,3 +106,198 @@ Item Suggestions:
   Potential Profit: 37.57999999999993 per item
   Buy Limit: 10000
   Max Quantity: 10000
+Item Suggestions:
+Item Suggestions:
+- Blue d'hide body
+  Buy Price: 4606
+  Sell Price: 4857.93
+  Potential Profit: 251.9300000000003 per item
+  Buy Limit: 125
+  Max Quantity: 125
+
+- Amulet of strength
+  Buy Price: 1052
+  Sell Price: 1209.78
+  Potential Profit: 157.77999999999997 per item
+  Buy Limit: 125
+  Max Quantity: 125
+
+- Expeditious bracelet
+  Buy Price: 1906
+  Sell Price: 2039.4
+  Potential Profit: 133.4000000000001 per item
+  Buy Limit: 10000
+  Max Quantity: 10000
+
+- Dwarf weed potion (unf)
+  Buy Price: 2667
+  Sell Price: 2771.01
+  Potential Profit: 104.01000000000022 per item
+  Buy Limit: 10000
+  Max Quantity: 10000
+
+- Yanillian hops
+  Buy Price: 1125
+  Sell Price: 1217.7
+  Potential Profit: 92.70000000000005 per item
+  Buy Limit: 11000
+  Max Quantity: 11000
+Item Suggestions:
+Item Suggestions:
+- Annakarl teleport (tablet)
+  Buy Price: 2079
+  Sell Price: 2854.17
+  Potential Profit: 775.1700000000001 per item
+  Buy Limit: 10000
+  Max Quantity: 10000
+
+- Antidote++(4)
+  Buy Price: 4303
+  Sell Price: 4615.38
+  Potential Profit: 312.3800000000001 per item
+  Buy Limit: 4000
+  Max Quantity: 4000
+
+- Icy basalt
+  Buy Price: 1148
+  Sell Price: 1276.11
+  Potential Profit: 128.1099999999999 per item
+  Buy Limit: 10000
+  Max Quantity: 10000
+
+- Redwood bird house
+  Buy Price: 1603
+  Sell Price: 1702.8
+  Potential Profit: 99.79999999999995 per item
+  Buy Limit: 250
+  Max Quantity: 250
+
+- Games necklace(8)
+  Buy Price: 789
+  Sell Price: 882.09
+  Potential Profit: 93.09000000000003 per item
+  Buy Limit: 10000
+  Max Quantity: 10000
+
+
+
+
+
+Item Suggestions:
+Item Suggestions:
+- Wine of zamorak
+  Buy Price: 1033
+  Sell Price: 1080.09
+  Potential Profit: 47.08999999999992 per item
+  Buy Limit: 11000
+  Max Quantity: 11000
+
+- Yanillian hops
+  Buy Price: 1159
+  Sell Price: 1204.83
+  Potential Profit: 45.82999999999993 per item
+  Buy Limit: 11000
+  Max Quantity: 11000
+
+- Opal dragon bolts (e)
+  Buy Price: 1075
+  Sell Price: 1119.69
+  Potential Profit: 44.690000000000055 per item
+  Buy Limit: 11000
+  Max Quantity: 11000
+
+- Dragonstone bolts
+  Buy Price: 809
+  Sell Price: 833.58
+  Potential Profit: 24.58000000000004 per item
+  Buy Limit: 11000
+  Max Quantity: 11000
+
+- Ruby
+  Buy Price: 758
+  Sell Price: 791.01
+  Potential Profit: 33.00999999999999 per item
+  Buy Limit: 13000
+  Max Quantity: 13000
+Item Suggestions:
+Item Suggestions:
+- Split log
+  Buy Price: 976
+  Sell Price: 2034.45
+  Potential Profit (After Tax): 1038.1055000000001 per item
+  Buy Limit: 11000
+  Max Quantity: 11000
+  Total Profit: 11419160.500000002
+
+- Ancient crystal
+  Buy Price: 147665
+  Sell Price: 194040.0
+  Potential Profit (After Tax): 44434.600000000006 per item
+  Buy Limit: 250
+  Max Quantity: 250
+  Total Profit: 11108650.000000002
+
+- Dragonstone ring
+  Buy Price: 11741
+  Sell Price: 12672.0
+  Potential Profit (After Tax): 804.2800000000007 per item
+  Buy Limit: 10000
+  Max Quantity: 8517
+  Total Profit: 6850052.760000005
+
+- Games necklace(8)
+  Buy Price: 882
+  Sell Price: 1516.68
+  Potential Profit (After Tax): 619.5132000000001 per item
+  Buy Limit: 10000
+  Max Quantity: 10000
+  Total Profit: 6195132.000000001
+
+- Dragon necklace
+  Buy Price: 11583
+  Sell Price: 12424.5
+  Potential Profit (After Tax): 717.2549999999992 per item
+  Buy Limit: 10000
+  Max Quantity: 8633
+  Total Profit: 6192062.4149999935
+Item Suggestions:
+Item Suggestions:
+- Mushroom pie
+  Buy Price: 1759
+  Sell Price: 2693.79
+  Potential Profit (After Tax): 907.8521000000001 per item
+  Buy Limit: 10000
+  Max Quantity: 10000
+  Total Profit: 9078521.0
+
+- Dragon necklace
+  Buy Price: 11583
+  Sell Price: 12424.5
+  Potential Profit (After Tax): 717.2549999999992 per item
+  Buy Limit: 10000
+  Max Quantity: 8633
+  Total Profit: 6192062.4149999935
+
+- Fiyr remains
+  Buy Price: 8099
+  Sell Price: 8910.0
+  Potential Profit (After Tax): 721.8999999999996 per item
+  Buy Limit: 7500
+  Max Quantity: 7500
+  Total Profit: 5414249.999999997
+
+- Salve graveyard teleport (tablet)
+  Buy Price: 2759
+  Sell Price: 3164.04
+  Potential Profit (After Tax): 373.39959999999974 per item
+  Buy Limit: 10000
+  Max Quantity: 10000
+  Total Profit: 3733995.999999997
+
+- Iorwerth camp teleport
+  Buy Price: 2484
+  Sell Price: 2858.13
+  Potential Profit (After Tax): 345.5487000000003 per item
+  Buy Limit: 10000
+  Max Quantity: 10000
+  Total Profit: 3455487.000000003

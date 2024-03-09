@@ -1,7 +1,7 @@
 # OSRSScraper.py
 
 import requests
-from datetime import datetime, timedelta
+import time
 from data_manager import DataManager
 
 class OSRSScraper:
@@ -14,14 +14,21 @@ class OSRSScraper:
         self.item_names = self.fetch_item_names()
         self.buy_limits = self.fetch_buy_limits()
 
-    def fetch_data(self, api_url):
-        try:
-            response = requests.get(api_url)
-            response.raise_for_status()
-            return response.json()['data']
-        except requests.exceptions.RequestException as e:
-            print(f"Error fetching data from {api_url}: {e}")
-            return None
+    def fetch_data(self, api_url, max_retries=3, retry_delay=5):
+        retries = 0
+        while retries < max_retries:
+            try:
+                response = requests.get(api_url)
+                response.raise_for_status()
+                return response.json()['data']
+            except requests.exceptions.RequestException as e:
+                print(f"Error fetching data from {api_url}: {e}")
+                retries += 1
+                time.sleep(retry_delay)
+            except (KeyError, ValueError) as e:
+                print(f"Error parsing data from {api_url}: {e}")
+                return None
+        return None
 
     def fetch_item_names(self):
         mapping_url = "https://prices.runescape.wiki/api/v1/osrs/mapping"
@@ -52,53 +59,61 @@ class OSRSScraper:
         data_5m = self.fetch_data(self.api_url_5m)
         items_data = []
 
-        if data_latest and data_5m:
-            for item_id, item_data_latest in data_latest.items():
-                if item_id in data_5m:
-                    item_data_5m = data_5m[item_id]
-                    high_price = item_data_latest.get('high', 0)
-                    low_price = item_data_latest.get('low', 0)
-                    average_price_5m = item_data_5m.get('avgHighPrice', 0)
-                    average_high_price = item_data_5m.get('avgHighPrice', 0)
-                    average_low_price = item_data_5m.get('avgLowPrice', 0)
-                    high_price_volume = item_data_5m.get('highPriceVolume', 0)
-                    low_price_volume = item_data_5m.get('lowPriceVolume', 0)
-                    buy_volume = low_price_volume
-                    sell_volume = high_price_volume
+        if data_latest is None or data_5m is None:
+            print("Error fetching data from the API. Fetching data from the database.")
+            items_data = self.data_manager.get_all_prices()
+        else:
+            item_ids = set(data_latest.keys()) | set(data_5m.keys())  # Union of item IDs from both datasets
 
-                    high_price = average_high_price - average_high_price * 0.01 if average_high_price else 0
-                    low_price = int(average_low_price * 0.99) if average_low_price else 0
-                    average_price_5m = int(average_price_5m) if average_price_5m else 0
+            for item_id in item_ids:
+                item_data_latest = data_latest.get(item_id, {})
+                item_data_5m = data_5m.get(item_id, {})
 
-                    if high_price > 0 and low_price > 0:
-                        potential_profit = high_price - low_price
-                        profit_margin = (potential_profit / low_price) * 100
+                high_price = item_data_latest.get('high', 0)
+                low_price = item_data_latest.get('low', 0)
+                average_price_5m = item_data_5m.get('avgHighPrice', 0)
+                average_high_price = item_data_5m.get('avgHighPrice', 0)
+                average_low_price = item_data_5m.get('avgLowPrice', 0)
+                high_price_volume = item_data_5m.get('highPriceVolume', 0)
+                low_price_volume = item_data_5m.get('lowPriceVolume', 0)
+                buy_volume = low_price_volume
+                sell_volume = high_price_volume
 
-                        if average_price_5m > 0:
-                            fluctuation = abs(high_price - average_price_5m) / average_price_5m
-                            roi = potential_profit / average_price_5m
+                high_price = average_high_price - average_high_price * 0.01 if average_high_price else 0
+                low_price = int(average_low_price * 0.99) if average_low_price else 0
+                average_price_5m = int(average_price_5m) if average_price_5m else 0
 
-                            if (
-                                profit_margin >= self.config.MIN_PROFIT
-                                and fluctuation >= self.config.MIN_FLUCTUATION
-                                and roi >= self.config.MIN_ROI
-                                and sell_volume >= self.config.MIN_SELL_VOLUME
-                                and buy_volume >= self.config.MIN_BUY_VOLUME
-                            ):
-                                item_name = self.item_names.get(item_id, "Unknown Item")
-                                buy_limit = self.buy_limits.get(item_id, 0)
-                                item_data = {
-                                    "Item ID": item_id,
-                                    "Item Name": item_name,
-                                    "High (Sell)": high_price,
-                                    "High Volume": high_price_volume,
-                                    "Low (Buy)": low_price,
-                                    "Low Volume": low_price_volume,
-                                    "5-Minute Average High Price": average_price_5m,
-                                    "ROI": roi,
-                                    "Potential Profit": potential_profit,
-                                    "Price Fluctuation": fluctuation * 100,
-                                    "Buy Limit": buy_limit,
-                                }
-                                items_data.append(item_data)
+                if high_price > 0 and low_price > 0:
+                    potential_profit = high_price * 0.99 - low_price
+                    profit_margin = (potential_profit / low_price) * 100
+
+                    if average_price_5m > 0:
+                        fluctuation = abs(high_price - average_price_5m) / average_price_5m
+                        roi = potential_profit / average_price_5m
+
+                        item_name = self.item_names.get(item_id, "Unknown Item")
+                        buy_limit = self.buy_limits.get(item_id, 0)
+                        item_data = {
+                            "Item ID": item_id,
+                            "Item Name": item_name,
+                            "High (Sell)": high_price,
+                            "High Volume": high_price_volume,
+                            "Low (Buy)": low_price,
+                            "Low Volume": low_price_volume,
+                            "5-Minute Average High Price": average_price_5m,
+                            "ROI": roi,
+                            "Potential Profit (After Tax)": potential_profit,
+                            "Price Fluctuation": fluctuation * 100,
+                            "Buy Limit": buy_limit,
+                        }
+                        items_data.append(item_data)
+                        self.save_item_data(item_data)
+
         return items_data
+
+    def save_item_data(self, item_data):
+        item_id = item_data["Item ID"]
+        timestamp = int(time.time())
+        price = item_data["High (Sell)"]
+        volume = item_data["High Volume"]
+        self.data_manager.insert_price(item_id, timestamp, price, volume)

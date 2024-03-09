@@ -1,9 +1,20 @@
+
 # main.py
 
 from kivy.core.window import Window
 from kivy.utils import get_color_from_hex
 from OSRSGrandExchangeApp import OSRSGrandExchangeApp
 import argparse
+import logging
+import sys
+
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+
+def update_rl_parameters(agent, new_params):
+    agent.epsilon = new_params.get('epsilon', agent.epsilon)
+    agent.alpha = new_params.get('alpha', agent.alpha)
+    agent.gamma = new_params.get('gamma', agent.gamma)
+    logging.info('Updated RL parameters.')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -13,4 +24,11 @@ if __name__ == "__main__":
 
     Window.clearcolor = get_color_from_hex(args.background_color)
     Window.size = (args.window_size[0], args.window_size[1])
-    OSRSGrandExchangeApp().run()
+
+    try:
+        app = OSRSGrandExchangeApp()
+        app.run()
+    except Exception as e:
+        logging.error(f"Unexpected error: {e}")
+        sys.exit(1)
+

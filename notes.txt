@@ -1,72 +1,108 @@
 Item Suggestions:
 Item Suggestions:
-- Ranarr seed
-  Buy Price: 26706
-  Sell Price: 27570.51
-  Potential Profit: 864.5099999999984 per item
-  Buy Limit: 200
-  Max Quantity: 200
+- Eclectic impling jar
+  Buy Price: 7687
+  Sell Price: 8705.07
+  Potential Profit: 1018.0699999999997 per item
+  Buy Limit: 18000
+  Max Quantity: 13008
 
-- Black d'hide chaps
-  Buy Price: 5213
-  Sell Price: 5841.0
-  Potential Profit: 628.0 per item
-  Buy Limit: 70
-  Max Quantity: 70
-
-- Black d'hide body
-  Buy Price: 7135
-  Sell Price: 7508.16
-  Potential Profit: 373.15999999999985 per item
-  Buy Limit: 70
-  Max Quantity: 70
-
-- Annakarl teleport (tablet)
-  Buy Price: 2660
-  Sell Price: 2899.71
-  Potential Profit: 239.71000000000004 per item
-  Buy Limit: 10000
-  Max Quantity: 10000
-
-- Anti-venom(4)
-  Buy Price: 6821
-  Sell Price: 7105.23
-  Potential Profit: 284.22999999999956 per item
+- Blighted super restore(4)
+  Buy Price: 5103
+  Sell Price: 5299.47
+  Potential Profit: 196.47000000000025 per item
   Buy Limit: 2000
   Max Quantity: 2000
-Item Suggestions:
-Item Suggestions:
+
 - Toadflax seed
-  Buy Price: 1190
-  Sell Price: 1366.2
-  Potential Profit: 176.20000000000005 per item
+  Buy Price: 1213
+  Sell Price: 1294.92
+  Potential Profit: 81.92000000000007 per item
   Buy Limit: 600
   Max Quantity: 600
 
-- Cadantine potion (unf)
-  Buy Price: 4207
-  Sell Price: 4345.11
-  Potential Profit: 138.10999999999967 per item
+- Blighted manta ray
+  Buy Price: 1345
+  Sell Price: 1391.94
+  Potential Profit: 46.940000000000055 per item
   Buy Limit: 10000
   Max Quantity: 10000
 
-- Ground guam
-  Buy Price: 28
-  Sell Price: 198.0
-  Potential Profit: 170.0 per item
-  Buy Limit: 100
-  Max Quantity: 100
+- Manta ray
+  Buy Price: 1192
+  Sell Price: 1229.58
+  Potential Profit: 37.57999999999993 per item
+  Buy Limit: 10000
+  Max Quantity: 10000
+Item Suggestions:
+Item Suggestions:
+- Eclectic impling jar
+  Buy Price: 7687
+  Sell Price: 8705.07
+  Potential Profit: 1018.0699999999997 per item
+  Buy Limit: 18000
+  Max Quantity: 13008
 
-- Blighted karambwan
-  Buy Price: 668
-  Sell Price: 730.62
-  Potential Profit: 62.620000000000005 per item
-  Buy Limit: 0
-  Max Quantity: 0
+- Blighted super restore(4)
+  Buy Price: 5103
+  Sell Price: 5299.47
+  Potential Profit: 196.47000000000025 per item
+  Buy Limit: 2000
+  Max Quantity: 2000
 
-- Arctic pine logs
-  Buy Price: 348
-  Sell Price: 424.71
-  Potential Profit: 76.70999999999998 per item
-  Buy Limit: 11000
-  Max Quantity: 11000
+- Toadflax seed
+  Buy Price: 1213
+  Sell Price: 1294.92
+  Potential Profit: 81.92000000000007 per item
+  Buy Limit: 600
+  Max Quantity: 600
+
+- Blighted manta ray
+  Buy Price: 1345
+  Sell Price: 1391.94
+  Potential Profit: 46.940000000000055 per item
+  Buy Limit: 10000
+  Max Quantity: 10000
+
+- Manta ray
+  Buy Price: 1192
+  Sell Price: 1229.58
+  Potential Profit: 37.57999999999993 per item
+  Buy Limit: 10000
+  Max Quantity: 10000
+Item Suggestions:
+Item Suggestions:
+- Eclectic impling jar
+  Buy Price: 7687
+  Sell Price: 8705.07
+  Potential Profit: 1018.0699999999997 per item
+  Buy Limit: 18000
+  Max Quantity: 13008
+
+- Blighted super restore(4)
+  Buy Price: 5103
+  Sell Price: 5299.47
+  Potential Profit: 196.47000000000025 per item
+  Buy Limit: 2000
+  Max Quantity: 2000
+
+- Toadflax seed
+  Buy Price: 1213
+  Sell Price: 1294.92
+  Potential Profit: 81.92000000000007 per item
+  Buy Limit: 600
+  Max Quantity: 600
+
+- Blighted manta ray
+  Buy Price: 1345
+  Sell Price: 1391.94
+  Potential Profit: 46.940000000000055 per item
+  Buy Limit: 10000
+  Max Quantity: 10000
+
+- Manta ray
+  Buy Price: 1192
+  Sell Price: 1229.58
+  Potential Profit: 37.57999999999993 per item
+  Buy Limit: 10000
+  Max Quantity: 10000

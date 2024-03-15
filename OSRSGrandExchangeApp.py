@@ -191,9 +191,18 @@ class OSRSGrandExchangeApp(App):
 
             if items_data is not None and len(items_data) > 0:
                 print("Training the model...")
-                model = train_model(items_data, epochs=20)
-                self.progress_bar.value = 80
                 model_file = "model.pkl"
+                if self.use_rl:
+                    # Train the reinforcement learning model
+                    from osrs_rl.trainer import OSRSTrainer
+                    trainer = OSRSTrainer(items_data)
+                    trainer.train()
+                    model = trainer.agent
+                else:
+                    # Train the normal model
+                    model = train_model(items_data, epochs=20)
+
+                self.progress_bar.value = 80
                 with open(model_file, "wb") as file:
                     pickle.dump(model, file)
                 print("Model training completed.")

@@ -1,53 +1,52 @@
-# osrs_rl/agent.py
-
 import numpy as np
 import random
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.optimizers import Adam
 
 class OSRSAgent:
-    def __init__(self, config):
-        self.config = config
-        self.q_table = np.zeros((config.NUM_STATES, config.NUM_ACTIONS))
-        self.epsilon = config.EPSILON
-        self.alpha = config.ALPHA
-        self.gamma = config.GAMMA
-        self.epsilon_decay = 0.995
+    def __init__(self, state_size, action_size):
+        self.state_size = state_size
+        self.action_size = action_size
+        self.memory = []
+        self.gamma = 0.95
+        self.epsilon = 1.0
         self.epsilon_min = 0.01
+        self.epsilon_decay = 0.995
+        self.learning_rate = 0.001
+        self.model = self._build_model()
 
-    def choose_action(self, state):
-        if random.uniform(0, 1) < self.epsilon:
-            # Explore: choose a random action
-            action = random.randint(0, self.config.NUM_ACTIONS - 1)
-        else:
-            # Exploit: choose the action with the highest Q-value for the current state
-            action = np.argmax(self.q_table[state])
-        return action
+    def _build_model(self):
+        model = Sequential()
+        model.add(Dense(24, input_dim=self.state_size, activation='relu'))
+        model.add(Dense(24, activation='relu'))
+        model.add(Dense(self.action_size, activation='linear'))
+        model.compile(loss='mse', optimizer=Adam(lr=self.learning_rate))
+        return model
 
-    def update_q_table(self, state, action, reward, next_state):
-        old_value = self.q_table[state, action]
-        next_max = np.max(self.q_table[next_state])
-        
-        # Update the Q-value using the Q-learning formula
-        new_value = (1 - self.alpha) * old_value + self.alpha * (reward + self.gamma * next_max)
-        self.q_table[state, action] = new_value
+    def remember(self, state, action, reward, next_state, done):
+        self.memory.append((state, action, reward, next_state, done))
 
-    def train(self, env, num_episodes):
-        for episode in range(num_episodes):
-            state = env.reset()
-            done = False
-            while not done:
-                action = self.choose_action(state)
-                next_state, reward, done, _ = env.step(action)
-                self.update_q_table(state, action, reward, next_state)
-                state = next_state
+    def act(self, state):
+        if np.random.rand() <= self.epsilon:
+            return random.randrange(self.action_size)
+        act_values = self.model.predict(state)
+        return np.argmax(act_values[0])
 
-            # Decay the exploration rate
-            self.epsilon = max(self.epsilon * self.epsilon_decay, self.epsilon_min)
-                
-    def predict(self, state):
-        return np.argmax(self.q_table[state])
+    def replay(self, batch_size):
+        minibatch = random.sample(self.memory, batch_size)
+        for state, action, reward, next_state, done in minibatch:
+            target = reward
+            if not done:
+                target = (reward + self.gamma * np.amax(self.model.predict(next_state)[0]))
+            target_f = self.model.predict(state)
+            target_f[0][action] = target
+            self.model.fit(state, target_f, epochs=1, verbose=0)
+        if self.epsilon > self.epsilon_min:
+            self.epsilon *= self.epsilon_decay
 
-    def save_q_table(self, filename):
-        np.save(filename, self.q_table)
+    def load(self, name):
+        self.model.load_weights(name)
 
-    def load_q_table(self, filename):
-        self.q_table = np.load(filename)
+    def save(self, name):
+        self.model.save_weights(name)

@@ -1,35 +1,42 @@
-# osrs_rl/trainer.py
+import numpy as np
+from osrs_rl.agent import OSRSAgent
+from osrs_rl.environment import OSRSEnvironment
 
 class OSRSTrainer:
-    def __init__(self, agent, environment):
-        self.agent = agent
-        self.environment = environment
+    def __init__(self, items_data):
+        self.items_data = items_data
+        self.state_size = 9
+        self.action_size = 2
+        self.agent = OSRSAgent(self.state_size, self.action_size)
+        self.env = OSRSEnvironment(self.items_data)
+        self.batch_size = 128
+        self.episodes = 1000
 
-    def train(self, num_episodes):
-        for episode in range(num_episodes):
-            state = self.environment.reset()
+    def train(self):
+        for e in range(self.episodes):
+            state = self.env.reset()
+            state = np.reshape(state, [1, self.state_size])
             done = False
             while not done:
-                action = self.agent.choose_action(state)
-                next_state, reward, done, info = self.environment.step(action)
-                self.agent.update_q_table(state, action, reward, next_state)
+                action = self.agent.act(state)
+                next_state, reward, done, _ = self.env.step(action)
+                next_state = np.reshape(next_state, [1, self.state_size])
+                self.agent.remember(state, action, reward, next_state, done)
                 state = next_state
-            print(f"Episode {episode + 1}: Total Profit = {info['total_profit']}, Total Transactions = {info['total_transactions']}")
+                if done:
+                    print(f"Episode: {e + 1}/{self.episodes}, Profit: {self.env.cash}")
+                    break
+            if len(self.agent.memory) > self.batch_size:
+                self.agent.replay(self.batch_size)
+        self.agent.save("osrs_rl_model.h5")
 
-    def evaluate(self, num_episodes):
-        total_profit = 0
-        total_transactions = 0
-        for episode in range(num_episodes):
-            state = self.environment.reset()
-            done = False
-            while not done:
-                action = self.agent.predict(state)
-                next_state, reward, done, info = self.environment.step(action)
-                state = next_state
-            total_profit += info['total_profit']
-            total_transactions += info['total_transactions']
-        average_profit = total_profit / num_episodes
-        average_transactions = total_transactions / num_episodes
-        print(f"Evaluation Results:")
-        print(f"Average Profit per Episode: {average_profit}")
-        print(f"Average Transactions per Episode: {average_transactions}")
+    def evaluate(self):
+        self.agent.load("osrs_rl_model.h5")
+        state = self.env.reset()
+        state = np.reshape(state, [1, self.state_size])
+        done = False
+        while not done:
+            action = self.agent.act(state)
+            next_state, _, done, _ = self.env.step(action)
+            state = np.reshape(next_state, [1, self.state_size])
+        print(f"Final Profit: {self.env.cash}")

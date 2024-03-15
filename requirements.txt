@@ -1,0 +1,7 @@
+kivy
+requests
+numpy
+pandas
+scikit-learn
+matplotlib
+sqlite3

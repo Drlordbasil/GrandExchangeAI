@@ -53,7 +53,7 @@ def generate_item_suggestions(items_data, starting_gold, model):
                         max_quantity = min(buy_limit, starting_gold // buy_price, 1000)  # Limit max quantity to 1000
                         item["Max Quantity"] = max_quantity
                         item["Total Profit"] = item["potential_profit"] * max_quantity
-                        if item["Total Profit"] > 1000000:  # Filter out suggestions with total profit over 1 million
+                        if item["Total Profit"] > 100:  
                             suggestions.append(item)
             except Exception as e:
                 print(f"Error occurred during model prediction: {e}")
@@ -100,7 +100,7 @@ def prepare_training_data(items_data):
         print(f"Error occurred in prepare_training_data: {e}")
         return None, None
 
-def train_model(items_data, epochs=10):
+def train_model(items_data, epochs=2):
     try:
         print("Training model...")
         X, y = prepare_training_data(items_data)
